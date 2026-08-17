@@ -289,14 +289,14 @@
     content:"";
     position:absolute;
     left:0;top:0;bottom:0;
-    width:34%;
+    width:var(--video-progress, 0%);
     background:var(--accent);
     border-radius:20px;
   }
   .scrub:after{
     content:"";
     position:absolute;
-    left:34%;top:50%;
+    left:var(--video-progress, 0%);top:50%;
     transform:translate(-50%,-50%);
     width:11px;height:11px;border-radius:50%;
     background:var(--accent);
@@ -374,7 +374,7 @@
   .playhead{
     position:absolute;
     top:-18px;
-    left:36%;
+    left:0%;
     width:1px;
     height:105px;
     background:var(--accent);
@@ -639,8 +639,8 @@
   }
   .phone-video:hover .reel-bg{transform:scale(1.045)}
 
-  .reel-bg-1{background-image:linear-gradient(to top,rgba(0,0,0,.72),transparent 55%),url('https://imgur.com/a/mens-41Ufjt2')}
-  .reel-bg-2{background-image:linear-gradient(to top,rgba(0,0,0,.72),transparent 55%),url('https://imgur.com/gallery/wild-picatchu-appeared-Zr13M0r')}
+  .reel-bg-1{background-image:linear-gradient(to top,rgba(0,0,0,.72),transparent 55%),url('https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=900&q=85')}
+  .reel-bg-2{background-image:linear-gradient(to top,rgba(0,0,0,.72),transparent 55%),url('https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=900&q=85')}
   .reel-bg-3{background-image:linear-gradient(to top,rgba(0,0,0,.72),transparent 55%),url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=85')}
   .reel-bg-4{background-image:linear-gradient(to top,rgba(0,0,0,.72),transparent 55%),url('https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=85')}
 
@@ -853,6 +853,10 @@
     border-top:1px solid var(--line);
   }
 
+
+  #videoScrub{cursor:pointer}
+  #clips{cursor:pointer}
+
 </style>
 </head>
 <body>
@@ -913,7 +917,7 @@
 
       <div class="controls">
         <div class="transport"><button class="transport-btn" onclick="togglePlay()" title="Play / Pause">▶</button><button class="transport-btn stop-btn" onclick="stopShowreel()" title="Stop">■</button><span>◇ &nbsp; ▷|</span></div>
-        <div class="scrub"></div>
+        <div class="scrub" id="videoScrub" title="Click to seek"></div>
         <div>◔ &nbsp; ⚙ &nbsp; ⛶</div>
       </div>
     </div>
@@ -925,7 +929,7 @@
           <span>00:00:00</span><span>00:00:15</span><span>00:00:30</span><span>00:00:45</span><span>00:01:00</span><span>00:01:15</span>
         </div>
         <div class="clips" id="clips">
-          <div class="playhead"></div>
+          <div class="playhead" id="timelinePlayhead"></div>
         </div>
       </div>
     </div>
@@ -935,7 +939,7 @@
     <div class="panel-title">Inspector <span class="dots">✣</span></div>
     <div class="inspector-body">
       <div class="profile-photo-wrap">
-        <img class="profile-photo" src="assets/allan-manigos.jpg" alt="Allan Manigos">
+        <img class="profile-photo" src="assets/profile-allan-manigos.jpg" alt="Allan Manigos">
       </div>
       <div class="inspector-grid">
         <div class="label">Editor</div><div class="value">Allan Manigos</div>
@@ -1064,7 +1068,7 @@ const projects = [
     about:"High-energy commercial built around motion, rhythm and story. Focused on pacing, sound design and visual impact.",
     hero:"Stories are made in the cut.",
     desc:"I turn raw footage into sharp, cinematic stories through pacing, sound design, motion and rhythm.",
-    image:"https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=1600&q=88"
+    image:"assets/project-01-run-different.jpg"
   },
   {
     name:"Lytro — Focus",
@@ -1077,7 +1081,7 @@ const projects = [
     about:"A restrained brand piece built around atmosphere, texture and cinematic pacing.",
     hero:"Every frame has a purpose.",
     desc:"Clean edits, emotional pacing and detail-driven sound design for a premium brand story.",
-    image:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=88"
+    image:"assets/project-02-lytro-focus.jpg"
   },
   {
     name:"Soundwave Festival",
@@ -1090,7 +1094,7 @@ const projects = [
     about:"Fast-cut festival campaign mixing live energy, graphic movement and beat-driven editing.",
     hero:"Cut to the beat. Build the moment.",
     desc:"High-impact event storytelling built to feel loud before the sound is even turned on.",
-    image:"https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1600&q=88"
+    image:"assets/project-03-soundwave-festival.jpg"
   },
   {
     name:"Night City",
@@ -1103,7 +1107,7 @@ const projects = [
     about:"Moody cinematic edit balancing neon atmosphere, performance and subtle narrative beats.",
     hero:"Mood is part of the story.",
     desc:"A darker cinematic cut shaped through pacing, sound, color and negative space.",
-    image:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1600&q=88"
+    image:"assets/project-04-night-city.jpg"
   },
   {
     name:"Velo Coffee",
@@ -1116,7 +1120,7 @@ const projects = [
     about:"Product-first edit with macro textures, rhythmic cuts and clean commercial polish.",
     hero:"Make the product feel irresistible.",
     desc:"Sharp product storytelling with tactile detail, polished timing and controlled visual rhythm.",
-    image:"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1600&q=88"
+    image:"assets/project-05-velo-coffee.jpg"
   },
   {
     name:"Into The Limit",
@@ -1129,7 +1133,7 @@ const projects = [
     about:"Typography, motion and graphic transitions designed as a tightly timed visual system.",
     hero:"Motion should feel intentional.",
     desc:"Graphic systems, transitions and movement designed to support the idea instead of distract from it.",
-    image:"https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?auto=format&fit=crop&w=1600&q=88"
+    image:"assets/project-06-into-the-limit.jpg"
   }
 ];
 
@@ -1186,6 +1190,45 @@ let playing=false;
 const mainVideo = document.getElementById('mainShowreel');
 const viewerFrame = document.getElementById('viewerFrame');
 
+const timelinePlayhead = document.getElementById('timelinePlayhead');
+const videoScrub = document.getElementById('videoScrub');
+const timelineClips = document.getElementById('clips');
+
+function updatePlaybackUI(){
+  if(!mainVideo.duration || !isFinite(mainVideo.duration)) return;
+  const ratio = Math.max(0, Math.min(1, mainVideo.currentTime / mainVideo.duration));
+  const percent = ratio * 100;
+
+  if(timelinePlayhead){
+    timelinePlayhead.style.left = percent + '%';
+  }
+
+  if(videoScrub){
+    videoScrub.style.setProperty('--video-progress', percent + '%');
+  }
+}
+
+function seekFromPointer(event, element){
+  if(!mainVideo.duration || !isFinite(mainVideo.duration)) return;
+  const rect = element.getBoundingClientRect();
+  const ratio = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+  mainVideo.currentTime = ratio * mainVideo.duration;
+  updatePlaybackUI();
+}
+
+videoScrub.addEventListener('click', (event) => seekFromPointer(event, videoScrub));
+
+timelineClips.addEventListener('click', (event) => {
+  if(event.target.closest('.clip')) return;
+  seekFromPointer(event, timelineClips);
+});
+
+mainVideo.addEventListener('timeupdate', updatePlaybackUI);
+mainVideo.addEventListener('loadedmetadata', updatePlaybackUI);
+mainVideo.addEventListener('durationchange', updatePlaybackUI);
+mainVideo.addEventListener('seeked', updatePlaybackUI);
+
+
 function syncMainButton(){
   playing = !mainVideo.paused;
   document.getElementById('playIcon').textContent = playing ? 'Ⅱ' : '▶';
@@ -1200,6 +1243,7 @@ function stopShowreel(){
   document.getElementById('playIcon').textContent = '▶';
   document.getElementById('playText').textContent = 'Play showreel';
   viewerFrame.classList.remove('video-playing');
+  updatePlaybackUI();
 }
 
 function togglePlay(){
@@ -1212,7 +1256,7 @@ function togglePlay(){
 
 mainVideo.addEventListener('play', syncMainButton);
 mainVideo.addEventListener('pause', syncMainButton);
-mainVideo.addEventListener('ended', syncMainButton);
+mainVideo.addEventListener('ended', () => { syncMainButton(); updatePlaybackUI(); });
 
 document.querySelectorAll('.reel-card').forEach(card => {
   const video = card.querySelector('video');
